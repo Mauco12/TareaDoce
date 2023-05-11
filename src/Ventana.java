@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Ventana extends JFrame {
@@ -22,6 +24,7 @@ public class Ventana extends JFrame {
     private ModeloTablaJuego modelo;
     private ArrayList<Videojuego> info;
     private JScrollPane scroll;
+    private JTable tblTabla;
 
     public Ventana(String title) throws HeadlessException {
         super(title);
@@ -63,8 +66,31 @@ public class Ventana extends JFrame {
         //PANEL 2
         panel2 = new JPanel(new FlowLayout());
         panel2.setBackground(new Color(201, 195, 241));
+        info = new ArrayList<>();
+        info.add(new Videojuego(1,"League of Legend","MOBA",4.5,"Windows y Mac",
+                "Riot Games"));
+        modelo=new ModeloTablaJuego(info);
+        tblTabla = new JTable(modelo);
+        scroll=new JScrollPane(tblTabla);
+        panel2.add(scroll);
+
+
         this.getContentPane().add(panel2, 1);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.btnAgregar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Videojuego nuevo = new Videojuego();
+                nuevo.setId(Integer.parseInt(txtId.getText()));
+                nuevo.setNombre(txtNombre.getText());
+                nuevo.setGenero(txtGenero.getText());
+                nuevo.setPesoENGb(Double.parseDouble(txtPeso.getText()));
+                nuevo.setPlataforma((txtPlataforma.getText()));
+                nuevo.setDesarrollador((txtDesarrollador.getText()));
+                modelo.agregarJuego(nuevo);
+                tblTabla.updateUI();
+            }
+        });
         this.setVisible(true);
     }
 }

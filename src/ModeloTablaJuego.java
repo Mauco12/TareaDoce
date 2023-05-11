@@ -105,4 +105,8 @@ public class ModeloTablaJuego implements TableModel {
     public void removeTableModelListener(TableModelListener l) {
 
     }
+
+    public void agregarJuego(Videojuego juego){
+        this.datos.add(juego);
+    }
 }
