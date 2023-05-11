@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ModeloTablaJuego implements TableModel {
     public static final int COLS = 6;
-    ArrayList<Videojuego>datos;
+    ArrayList<Videojuego> datos;
 
     public ModeloTablaJuego(ArrayList<Videojuego> datos) {
         this.datos = datos;
@@ -13,7 +13,7 @@ public class ModeloTablaJuego implements TableModel {
 
     @Override
     public int getRowCount() {
-        return 0;
+        return datos.size();
     }
 
     @Override
@@ -23,11 +23,46 @@ public class ModeloTablaJuego implements TableModel {
 
     @Override
     public String getColumnName(int columnIndex) {
-        return null;
+        String columName = "";
+        switch (columnIndex) {
+            case 0:
+                columName = "ID.";
+                break;
+            case 1:
+                columName = "Nombre";
+                break;
+            case 2:
+                columName = "Genero";
+                break;
+            case 3:
+                columName = "Peso en GB";
+                break;
+            case 4:
+                columName = "Plataforma";
+                break;
+            case 5:
+                columName = "Desarrollador";
+                break;
+        }
+        return columName;
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
+        switch (columnIndex){
+            case 0:
+                return Integer.class;
+            case 1:
+                return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return double.class;
+            case 4:
+                return String.class;
+            case 5:
+                return String.class;
+        }
         return null;
     }
 
@@ -38,6 +73,21 @@ public class ModeloTablaJuego implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        Videojuego tmp = datos.get(rowIndex);
+        switch (columnIndex){
+            case 0:
+                return tmp.getId();
+            case 1:
+                return tmp.getNombre();
+            case 2:
+                return tmp.getGenero();
+            case 3:
+                return tmp.getPesoENGb();
+            case 4:
+                return tmp.getPlataforma();
+            case 5:
+                return tmp.getDesarrollador();
+        }
         return null;
     }
 
